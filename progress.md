@@ -1,0 +1,29 @@
+# 執行進度
+
+- 已讀取 codebase-research 與 planning-with-files 指引；planning-with-files 的 session catchup 無待同步內容。
+- 已建立工作計畫與工作記錄。
+- 完成現有 README、動畫／主影片 Python 流程與輸出樣本盤點，確認不是 Git repository；不再查詢 Git。
+- 確認本機 Rust/cargo、FFmpeg/ffprobe 版本與常用 Cargo crate source cache。
+- 確認動畫核心需求與 Rust GUI 的 MVP 設計；下一步查看 crate feature/IO API 並建 Cargo 專案。
+- 查詢 FFmpeg 版本時曾使用錯誤旗標 `--version`；改成 `-version` 後查詢成功。
+- 架構決定完成：Rust `eframe/egui` 原生桌面 GUI；Rust 實作素材解碼、縮放與逐幀 alpha 動畫；FFmpeg 僅負責透明格式編碼、可選棋盤格預覽與主影片合成。GUI 另外提供素材 JSON 專案保存/讀取及專案原有主片疊加能力。
+- `cargo check --offline` 第一次建置已解析並編譯本機依賴，Rust 程式本身找到 4 項編譯錯誤：main 的 `egui` 路徑未匯入、eframe 0.34 的 App trait 改用 `ui()`、負號套在 u32、ffprobe 輸出暫存字串借用過短。依錯誤訊息修正後再建置。
+- 本次嘗試讀取 Computer Use 文件時組合的 docs 路徑多退/少退一層造成 FileNotFound；回到技能目錄的實際相對路徑讀取，不重試同一路徑。
+- 修正 eframe 0.34 API、main egui namespace、浮點座標運算與 ffprobe 文字生命週期後，`cargo check --offline` 首次成功（0.65s）。
+- 依 code review 自查修正：模式／畫布尺寸改變時重新載入縮放素材；spin 的雙三次取樣以透明黑色處理邊界；float/spin 忽略 carousel 專用轉場幀設定。
+- 電腦操作技能文件讀取成功；此環境的 computer-use workflow 需要 `node_repl` + `@oai/sky`，但已提供工具目錄未列出 `node_repl`，稍後確認可用 GUI surface；若不可用，明確記錄無法真人操作的驗收邊界。
+- `cargo fmt --check` 回報 Rust 原始碼需 rustfmt 排版；套用 `cargo fmt` 後再確認。
+- Windows 原生操作面雖有 `mcp__cua_repl`，但執行時 `cua.listApps()` 與 `cua.listWindows()` 都不存在；getState 只列出瀏覽器且 apps 為空。GUI Computer Use 無法檢視／操作原生視窗，已按技能指引停止此路徑，不用其他輸入注入工具替代。
+- Release build is still active after the source-only change (rustc is using CPU); waiting for the final exit before launch.
+- Code review follow-up: image 0.25.10 includes Orientation/EXIF APIs, so no extra dependency is needed to match the original EXIF transpose behavior; inspect the exported decoder API and apply it before RGBA conversion.
+- FFmpeg 8.1.1 advertises all configured encoders: prores_ks, qtrle, libvpx-vp9, libx264, and aac.
+- Code review caught that the old Python flow applied JPEG EXIF orientation. The image 0.25.10 decoder API supports the same correction; the Rust loader now reads Orientation and applies it before RGBA conversion (malformed optional orientation metadata falls back to untransformed pixels).
+- Review also found a possible background FFmpeg process if PNG output folder creation failed; directory creation now happens before the encoder process starts.
+- Added the Rust README and standard ignored build/output folders. Rust remains the primary app; Python source and provided sample artifacts are retained for compatibility/reference.
+- First release build succeeded; source was then updated for the review items above, so a final rebuild is still required.
+- 最終 `cargo fmt --check` 通過，`cargo check --offline` 通過，最後 `cargo build --release --offline` 成功；正式 exe 大小約 6.97 MB。
+- 正式 exe 已啟動，Windows 回報進程 `transparent-overlay-studio` 存活、主視窗標題「透明字卡工作室」、HWND 非 0。
+- 截圖技能以目標 HWND 取圖時，畫面被另一個前景視窗遮住，無法確認本 GUI 外觀；原生 Computer Use API 無法列出/操作 Windows app，所以未操作加入素材、調整參數或按輸出，這些互動驗收仍待主人操作。
+- README 已換成 Rust GUI 操作與建置說明；舊 Python CLI 與 samples 保留作相容參考。FFmpeg encoder 可用清單已確認。
+- 修正 GUI 中文亂碼：啟動時優先從 Windows 系統字型或使用者字型目錄載入 Microsoft JhengHei，並依序尋找 Noto Sans TC、MingLiU、Microsoft YaHei；套用於比例與等寬字族。未找到字型時，狀態列顯示安裝提示。
+- 字型修正驗證：`C:\Windows\Fonts\msjh.ttc` 存在；`cargo fmt --check`、`cargo check --offline`、`cargo build --release --offline` 通過，修正版 GUI 啟動並建立主視窗。截圖仍被前景剪輯軟體遮住，因此未能目視確認字形，也未做 GUI 點操作。

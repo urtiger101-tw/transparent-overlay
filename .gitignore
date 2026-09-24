@@ -1,0 +1,8 @@
+/target/
+/output/
+/.opencode/
+/.sites-runtime/
+/__pycache__/
+/desktop_after*.png
+/ui_after.png
+/window_after.png

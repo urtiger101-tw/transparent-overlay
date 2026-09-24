@@ -1,0 +1,190 @@
+{
+  "environment": {
+    "os": "linux",
+    "python": "3.13.5",
+    "pillow": "12.3.0",
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers"
+  },
+  "unit_tests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "samples": {
+    "prores": {
+      "bytes": 25938392,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "prores",
+            "profile": "4444",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuva444p12le",
+            "avg_frame_rate": "30/1",
+            "duration": "6.000000",
+            "nb_frames": "180"
+          }
+        ],
+        "format": {
+          "duration": "6.000000"
+        }
+      },
+      "decoded_alpha_at_1_6_seconds": {
+        "time_seconds": 1.6,
+        "alpha_min_8bit": 0,
+        "alpha_max_8bit": 255,
+        "transparent_pixel_percent": 85.1011,
+        "semi_transparent_pixel_percent": 14.8668,
+        "opaque_pixel_percent": 0.0321
+      }
+    },
+    "qtrle": {
+      "bytes": 8861506,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "qtrle",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "argb",
+            "avg_frame_rate": "30/1",
+            "duration": "6.000000",
+            "nb_frames": "180"
+          }
+        ],
+        "format": {
+          "duration": "6.000000"
+        }
+      },
+      "decoded_alpha_at_1_6_seconds": {
+        "time_seconds": 1.6,
+        "alpha_min_8bit": 0,
+        "alpha_max_8bit": 255,
+        "transparent_pixel_percent": 85.1011,
+        "semi_transparent_pixel_percent": 14.8707,
+        "opaque_pixel_percent": 0.0282
+      }
+    },
+    "webm": {
+      "bytes": 905464,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vp9",
+            "profile": "Profile 0",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "30/1"
+          }
+        ],
+        "format": {
+          "duration": "6.000000"
+        }
+      },
+      "decoded_alpha_at_1_6_seconds": {
+        "time_seconds": 1.6,
+        "alpha_min_8bit": 0,
+        "alpha_max_8bit": 255,
+        "transparent_pixel_percent": 85.3789,
+        "semi_transparent_pixel_percent": 14.5903,
+        "opaque_pixel_percent": 0.0308
+      }
+    }
+  },
+  "integration_tests": {
+    "short_audio_does_not_truncate_video": {
+      "passed": true,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "avg_frame_rate": "30/1",
+            "duration": "8.000000",
+            "nb_frames": "240"
+          },
+          {
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0",
+            "duration": "3.018005",
+            "nb_frames": "131"
+          }
+        ]
+      }
+    },
+    "silent_base_with_webm_alpha": {
+      "passed": true,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_type": "video",
+            "avg_frame_rate": "30/1",
+            "duration": "1.000000",
+            "nb_frames": "30"
+          }
+        ]
+      }
+    },
+    "float_test": {
+      "passed": true,
+      "encoded_bytes": 1487457
+    },
+    "spin_test": {
+      "passed": true,
+      "encoded_bytes": 1395072
+    }
+  },
+  "limitations": [
+    "Windows and macOS were not executed in this environment.",
+    "Editor-specific import compatibility was not tested.",
+    "The helper targets normal SDR timelines and produces CFR output."
+  ],
+  "qtrle_lossless_spot_checks": [
+    {
+      "frame": 0,
+      "decoded_rgba_identical_to_png": true
+    },
+    {
+      "frame": 48,
+      "decoded_rgba_identical_to_png": true
+    },
+    {
+      "frame": 100,
+      "decoded_rgba_identical_to_png": true
+    },
+    {
+      "frame": 179,
+      "decoded_rgba_identical_to_png": true
+    }
+  ],
+  "preview": {
+    "two_cycles": true,
+    "transparent": false,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "avg_frame_rate": "30/1",
+          "duration": "12.000000",
+          "nb_frames": "360"
+        }
+      ]
+    }
+  },
+  "png_frame_count": 180,
+  "loop_boundary": {
+    "last_to_first_mean_absolute_difference_8bit_premultiplied": 0.10257161458333333,
+    "note": "A sampled loop need not have identical first and last frames; the last-to-next-first step follows the periodic animation."
+  }
+}

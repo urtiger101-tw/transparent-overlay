@@ -1,0 +1,26 @@
+{
+  "kit_version": "1.0.0",
+  "width": 640,
+  "height": 360,
+  "fps": 30,
+  "frame_count": 180,
+  "duration_seconds": 6.0,
+  "mode": "carousel",
+  "seconds_per_slot_including_transition": 2.0,
+  "transition_seconds": 0.8,
+  "loopable": true,
+  "alpha_mode": "straight",
+  "source_precision": "8-bit RGBA",
+  "outputs": [
+    "overlay_prores.mov",
+    "overlay_qtrle.mov",
+    "overlay_webm.webm"
+  ],
+  "png_frames_retained": true,
+  "source_images": [
+    "01_demo.png",
+    "02_demo.png",
+    "03_demo.png"
+  ],
+  "note": "MP4/checkerboard files are PREVIEWS ONLY, not transparent assets. No endpoint frame is duplicated."
+}
