@@ -2,9 +2,11 @@
 
 以 Rust 製作的 Windows 桌面 GUI，用來快速替換透明圖片、套用循環動畫並輸出透明影片。FFmpeg 負責影片編碼和主影片合成。
 
+App 圖示位於 `assets/app_icon.png`，Windows 執行檔使用多尺寸 `assets/app_icon.ico`；建置時會自動嵌入圖示。
+
 ## 開始使用
 
-需要 Rust stable 與 FFmpeg。FFmpeg 必須在 PATH 中；若使用自訂位置，可設定環境變數 FFMPEG 指向執行檔。
+需要 Rust stable 與 FFmpeg。Windows MSVC 建置另需 Windows SDK 的 `rc.exe` 以嵌入圖示。FFmpeg 必須在 PATH 中；若使用自訂位置，可設定環境變數 FFMPEG 指向執行檔。
 
 GUI 會自動載入 Windows 已安裝的繁體中文字型（例如 Microsoft JhengHei 或 Noto Sans TC）。若文字仍顯示方框，請先在 Windows 安裝其中一種字型再重新開啟程式。
 
